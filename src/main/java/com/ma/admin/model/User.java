@@ -1,6 +1,8 @@
 package com.ma.admin.model;
 
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import xyz.erupt.annotation.Erupt;
 import xyz.erupt.annotation.EruptField;
 import xyz.erupt.annotation.sub_erupt.Power;
@@ -9,8 +11,10 @@ import xyz.erupt.annotation.sub_field.EditType;
 import xyz.erupt.annotation.sub_field.View;
 import xyz.erupt.annotation.sub_field.sub_edit.DateType;
 import xyz.erupt.annotation.sub_field.sub_edit.InputType;
+import xyz.erupt.annotation.sub_field.sub_edit.Search;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -21,14 +25,15 @@ import java.util.Date;
  */
 @Entity
 @Data
+@DynamicUpdate
 @Erupt( name = "用户",
         primaryKeyCol = "user_id",
-        power= @Power(add = true,delete = true,
+        power= @Power(add = false,delete = true,
                 edit = true,query = true
         )
 )
 @Table(name = "user")
-public class User {
+public class User implements Serializable {
 
     @EruptField
     @Id
@@ -42,7 +47,7 @@ public class User {
             ),
             edit = @Edit(
                     title = "用户名",
-                    type = EditType.INPUT, notNull = true,
+                    type = EditType.INPUT, notNull = true,search = @Search,
                     inputType = @InputType
             )
     )
@@ -55,7 +60,7 @@ public class User {
             ),
             edit = @Edit(
                     title = "手机号",
-                    type = EditType.INPUT,
+                    type = EditType.INPUT,search = @Search,
                     inputType = @InputType
             )
     )
@@ -68,7 +73,7 @@ public class User {
             ),
             edit = @Edit(
                     title = "性别",
-                    type = EditType.INPUT,
+                    type = EditType.INPUT,search = @Search,
                     inputType = @InputType
             )
     )
@@ -81,7 +86,7 @@ public class User {
             ),
             edit = @Edit(
                     title = "邮箱",
-                    type = EditType.INPUT, notNull = true,
+                    type = EditType.INPUT, notNull = true,search = @Search,
                     inputType = @InputType(type = "email")
             )
     )
@@ -94,7 +99,7 @@ public class User {
             ),
             edit = @Edit(
                     title = "生日",
-                    type = EditType.DATE,
+                    type = EditType.DATE,search = @Search(vague = true),
                     dateType = @DateType(type = DateType.Type.DATE)
             )
     )
@@ -107,37 +112,12 @@ public class User {
             ),
             edit = @Edit(
                     title = "身份证号",
-                    type = EditType.INPUT,
+                    type = EditType.INPUT,search = @Search,
                     inputType = @InputType
             )
     )
     @Column(name = "user_identity_num")
     private String user_identity_num;
 
-    @EruptField(
-            views = @View(
-                    title = "密码", show = false
-            ),
-            edit = @Edit(
-                    title = "密码",
-                    type = EditType.INPUT, show = false,
-                    inputType = @InputType
-            )
-    )
-    @Column(name = "user_password")
-    private String user_password;
-
-    @EruptField(
-            views = @View(
-                    title = "盐值", show = false
-            ),
-            edit = @Edit(
-                    title = "盐值",
-                    type = EditType.INPUT, show = false,
-                    inputType = @InputType
-            )
-    )
-    @Column(name = "user_salt")
-    private String user_salt;
 
 }
