@@ -59,6 +59,7 @@ public class Line implements Serializable {
                     )
             )
     )
+    @Column(name = "line_start_station_name")
     private String line_start_station_name;
 
     @EruptField(
@@ -77,6 +78,7 @@ public class Line implements Serializable {
                     )
             )
     )
+    @Column(name = "line_end_station_name")
     private String line_end_station_name;
 
 }

@@ -3,6 +3,7 @@ package com.ma.admin.model;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.stereotype.Component;
 import xyz.erupt.annotation.Erupt;
 import xyz.erupt.annotation.EruptField;
 import xyz.erupt.annotation.sub_field.Edit;
@@ -46,6 +47,7 @@ public class Station implements Serializable {
                     inputType = @InputType
             )
     )
+    @Column(name = "station_name")
     private String station_name;
 
     @EruptField(
@@ -58,5 +60,6 @@ public class Station implements Serializable {
                     inputType = @InputType
             )
     )
+    @Column(name = "station_adress")
     private String station_adress;
 }

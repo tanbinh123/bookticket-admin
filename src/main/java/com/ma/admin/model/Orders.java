@@ -75,6 +75,7 @@ public class Orders implements Serializable {
                     dateType = @DateType(type = DateType.Type.DATE_TIME)
             )
     )
+    @Column(name = "order_create_time")
     private Date order_create_time;
 
     @EruptField(
@@ -82,6 +83,7 @@ public class Orders implements Serializable {
                     title = "修改时间", sortable = true
             )
     )
+    @Column(name = "order_update_time")
     private Date order_update_time;
 
     @EruptField(
@@ -94,6 +96,7 @@ public class Orders implements Serializable {
                             fetchHandlerParams = "order_status" //字典编码，通过字典编码获取字典项列表
                     ))
     )
+    @Column(name = "order_status")
     private Integer order_status;
 
     @EruptField(
@@ -106,6 +109,7 @@ public class Orders implements Serializable {
                     inputType = @InputType
             )
     )
+    @Column(name = "order_passenger_name")
     private String order_passenger_name;
 
     @EruptField(
@@ -118,6 +122,7 @@ public class Orders implements Serializable {
                     inputType = @InputType
             )
     )
+    @Column(name = "order_passenger_identity_num")
     private String order_passenger_identity_num;
 
     @EruptField(
@@ -130,6 +135,7 @@ public class Orders implements Serializable {
                     inputType = @InputType
             )
     )
+    @Column(name = "order_linkman_phone")
     private String order_linkman_name;
 
     @EruptField(
@@ -142,6 +148,7 @@ public class Orders implements Serializable {
                     inputType = @InputType
             )
     )
+    @Column(name = "order_linkman_phone")
     private String order_linkman_phone;
 
     @EruptField(
@@ -154,6 +161,7 @@ public class Orders implements Serializable {
                             fetchHandlerParams = "order_seat_level" //字典编码，通过字典编码获取字典项列表
                     ))
     )
+    @Column(name = "order_seat_level")
     private Integer order_seat_level;
 
     @EruptField(
@@ -166,6 +174,7 @@ public class Orders implements Serializable {
                     numberType = @NumberType
             )
     )
+    @Column(name = "order_price")
     private Float order_price;
 
 }
