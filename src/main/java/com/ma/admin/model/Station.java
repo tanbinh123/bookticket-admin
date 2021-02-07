@@ -5,7 +5,6 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import xyz.erupt.annotation.Erupt;
 import xyz.erupt.annotation.EruptField;
-import xyz.erupt.annotation.sub_erupt.Power;
 import xyz.erupt.annotation.sub_field.Edit;
 import xyz.erupt.annotation.sub_field.EditType;
 import xyz.erupt.annotation.sub_field.View;
@@ -22,10 +21,7 @@ import java.io.Serializable;
  * @date 2021/2/3 14:15
  */
 @Erupt( name = "站点",
-        primaryKeyCol = "station_id",
-        power= @Power(add = true,delete = true,
-                edit = true,query = true
-        )
+        primaryKeyCol = "station_id"
 )
 @Table( name = "station")
 @Data

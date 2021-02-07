@@ -1,7 +1,7 @@
 package com.ma.admin.model;
 
+import com.ma.admin.handler.OrderDataProxy;
 import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import xyz.erupt.annotation.Erupt;
 import xyz.erupt.annotation.EruptField;
@@ -10,7 +10,7 @@ import xyz.erupt.annotation.sub_field.Edit;
 import xyz.erupt.annotation.sub_field.EditType;
 import xyz.erupt.annotation.sub_field.View;
 import xyz.erupt.annotation.sub_field.sub_edit.*;
-import xyz.erupt.upms.handler.SqlChoiceFetchHandler;
+import xyz.erupt.upms.handler.DictChoiceFetchHandler;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,7 +26,8 @@ import java.util.Date;
         primaryKeyCol = "order_id",
         power= @Power(add = false,delete = true,
                 edit = true,query = true
-        )
+        ),
+        dataProxy = OrderDataProxy.class
 )
 @Table(name = "orders")
 @Entity
@@ -40,43 +41,29 @@ public class Orders implements Serializable {
     @Column(name = "order_id")
     private Integer order_id;
 
+    @ManyToOne
+    @JoinColumn(name = "order_user_id")
     @EruptField(
-            views = @View(
-                    title = "用户编号", sortable = true
-            ),
-            edit = @Edit(
-                    search = @Search,
-                    title = "用户编号",
-                    notNull = true,
-                    type = EditType.CHOICE,
-                    desc = "获取已有的用户编号",
-                    choiceType = @ChoiceType(
-                            fetchHandler = SqlChoiceFetchHandler.class,
-                            fetchHandlerParams = "select user_id from user"
-                    )
+            views = {
+                    @View(title = "用户编号", column = "user_id"),
+            },
+            edit = @Edit(title = "用户编号选择", type = EditType.REFERENCE_TABLE, search = @Search,
+                    referenceTableType = @ReferenceTableType(label = "user_id",id = "user_id")
             )
     )
-    @Column(name = "order_user_id")
-    private Integer order_user_id;
+    private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "order_trips_id")
     @EruptField(
-            views = @View(
-                    title = "车次编号", sortable = true
-            ),
-            edit = @Edit(
-                    search = @Search,
-                    title = "车次编号",
-                    notNull = true,
-                    type = EditType.CHOICE,
-                    desc = "获取已有的车次编号",
-                    choiceType = @ChoiceType(
-                            fetchHandler = SqlChoiceFetchHandler.class,
-                            fetchHandlerParams = "select trips_id from trips"
-                )
+            views = {
+                    @View(title = "车次编号", column = "trips_id"),
+            },
+            edit = @Edit(title = "车次编号选择", type = EditType.REFERENCE_TABLE, search = @Search,
+                    referenceTableType = @ReferenceTableType(label = "trips_id",id = "trips_id")
             )
     )
-    @Column(name = "order_trips_id")
-    private Integer order_trips_id;
+    private Trips trips;
 
     @EruptField(
             views = @View(
@@ -93,24 +80,19 @@ public class Orders implements Serializable {
     @EruptField(
             views = @View(
                     title = "修改时间", sortable = true
-            ),
-            edit = @Edit(
-                    title = "修改时间",
-                    type = EditType.DATE,search = @Search(vague = true),
-                    dateType = @DateType(type = DateType.Type.DATE_TIME)
             )
     )
     private Date order_update_time;
 
     @EruptField(
-            views = @View(
-                    title = "状态", sortable = true
-            ),
+            views = @View(title = "状态"),
             edit = @Edit(
-                    title = "状态",search = @Search,
-                    type = EditType.NUMBER, notNull = true,
-                    numberType = @NumberType
-            )
+                    search = @Search,
+                    title = "状态", type = EditType.CHOICE, desc = "动态获取字典项的值",
+                    choiceType = @ChoiceType(
+                            fetchHandler = DictChoiceFetchHandler.class,
+                            fetchHandlerParams = "order_status" //字典编码，通过字典编码获取字典项列表
+                    ))
     )
     private Integer order_status;
 
@@ -163,14 +145,14 @@ public class Orders implements Serializable {
     private String order_linkman_phone;
 
     @EruptField(
-            views = @View(
-                    title = "坐席"
-            ),
+            views = @View(title = "坐席"),
             edit = @Edit(
-                    title = "坐席",
-                    type = EditType.NUMBER, notNull = true,search = @Search,
-                    numberType = @NumberType
-            )
+                    search = @Search,
+                    title = "坐席", type = EditType.CHOICE, desc = "动态获取字典项的值",
+                    choiceType = @ChoiceType(
+                            fetchHandler = DictChoiceFetchHandler.class,
+                            fetchHandlerParams = "order_seat_level" //字典编码，通过字典编码获取字典项列表
+                    ))
     )
     private Integer order_seat_level;
 
@@ -184,6 +166,6 @@ public class Orders implements Serializable {
                     numberType = @NumberType
             )
     )
-    private Integer order_price;
+    private Float order_price;
 
 }

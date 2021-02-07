@@ -1,11 +1,11 @@
 package com.ma.admin.model;
 
+import com.ma.admin.handler.LineDataProxy;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import xyz.erupt.annotation.Erupt;
 import xyz.erupt.annotation.EruptField;
-import xyz.erupt.annotation.sub_erupt.Power;
 import xyz.erupt.annotation.sub_field.Edit;
 import xyz.erupt.annotation.sub_field.EditType;
 import xyz.erupt.annotation.sub_field.View;
@@ -24,9 +24,8 @@ import java.io.Serializable;
  */
 @Erupt(name = "线路",
         primaryKeyCol = "line_id",
-        power= @Power(add = true,delete = true,
-                edit = true,query = true
-        ))
+        dataProxy = LineDataProxy.class
+)
 @Table(name = "line")
 @Entity
 @Data

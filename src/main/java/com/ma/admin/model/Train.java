@@ -49,7 +49,7 @@ public class Train implements Serializable {
             )
     )
     @Column(name = "train_name")
-    private String train_name;
+    private String trainName;
 
     @EruptField(
             views = @View(
@@ -62,11 +62,11 @@ public class Train implements Serializable {
             )
     )
     @Column(name = "train_speed")
-    private Integer train_speed;
+    private Float train_speed;
 
     @EruptField(
             views = @View(
-                    title = "座位数量"
+                    title = "座位数量",sortable = true
             ),
             edit = @Edit(
                     title = "座位数量",

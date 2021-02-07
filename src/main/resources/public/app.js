@@ -9,7 +9,7 @@ window.eruptSiteConfig = {
     //描述
     desc: "火车订票后台管理系统",
     //高德地图api key,使用地图组件须指定此属性，amapKey获取地址：https://lbs.amap.com
-    amapKey: "6ba79a8d6ba79a8d",
+    amapKey: "7442e51021c4be46e2a1e9ad3f0fab0f",
     //logo路径
     logoPath: "erupt.svg",
     //logo文字

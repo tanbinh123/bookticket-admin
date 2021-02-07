@@ -1,11 +1,13 @@
 package com.ma.admin.model;
 
+import com.ma.admin.handler.TripsDataProxy;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SQLDelete;
 import xyz.erupt.annotation.Erupt;
 import xyz.erupt.annotation.EruptField;
 import xyz.erupt.annotation.sub_erupt.Filter;
-import xyz.erupt.annotation.sub_erupt.Power;
 import xyz.erupt.annotation.sub_field.Edit;
 import xyz.erupt.annotation.sub_field.EditType;
 import xyz.erupt.annotation.sub_field.View;
@@ -25,14 +27,14 @@ import java.util.Date;
 @Erupt( name = "车次",
         primaryKeyCol = "trips_id",
         filter = @Filter("trips_delete_flag = 0"),
-        power= @Power(add = false,delete = true,
-                edit = true,query = true
-        )
+        dataProxy = TripsDataProxy.class
 )
 @SQLDelete(sql="update trips set trips_delete_flag = 1 where trips_id = ?")
 @Table(name = "trips")
 @Entity
 @Data
+@DynamicUpdate
+@DynamicInsert
 public class Trips implements Serializable {
 
     @EruptField(
@@ -45,33 +47,32 @@ public class Trips implements Serializable {
     @Column(name = "trips_id")
     private Integer trips_id;
 
+    @ManyToOne
+    @JoinColumn(name = "trips_line_id")
     @EruptField(
-            views = @View(
-                    title = "列车编号"
-            ),
-            edit = @Edit(
-                    search = @Search,
-                    title = "列车编号",
-                    notNull = true,
-                    type = EditType.CHOICE,
-                    desc = "获取已有的列车",
-                    choiceType = @ChoiceType(
-                            fetchHandler = SqlChoiceFetchHandler.class,
-                            fetchHandlerParams = "select line_id from line"
-                    )
+            views = {
+                    @View(title = "线路编号", column = "line_id"),
+            },
+            edit = @Edit(title = "线路选择", type = EditType.REFERENCE_TABLE, search = @Search,
+                    referenceTableType = @ReferenceTableType(label = "line_id",id = "line_id")
             )
     )
-    @Column(name = "trips_line_id")
-    private Integer trips_line_id;
+    private Line line;
 
     @EruptField(
             views = @View(
                     title = "列车名称", sortable = true
             ),
             edit = @Edit(
+                    search = @Search,
                     title = "列车名称",
-                    type = EditType.INPUT, notNull = true,search = @Search,
-                    inputType = @InputType
+                    notNull = true,
+                    type = EditType.CHOICE,
+                    desc = "获取已有的列车",
+                    choiceType = @ChoiceType(
+                            fetchHandler = SqlChoiceFetchHandler.class,
+                            fetchHandlerParams = "select train_name from train"
+                    )
             )
     )
     @Column(name= "trips_train_name")
@@ -140,7 +141,7 @@ public class Trips implements Serializable {
             )
     )
     @Column(name= "trips_first_seat_price")
-    private Double trips_first_seat_price;
+    private Float trips_first_seat_price;
 
     @EruptField(
             views = @View(
@@ -153,7 +154,7 @@ public class Trips implements Serializable {
             )
     )
     @Column(name= "trips_second_seat_price")
-    private Double trips_second_seat_price;
+    private Float trips_second_seat_price;
 
     @Column(name = "trips_delete_flag")
     private Integer trips_delete_flag;          //逻辑删除标志

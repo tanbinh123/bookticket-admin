@@ -1,7 +1,7 @@
 package com.ma.admin.model;
 
+import com.ma.admin.handler.UserDataProxy;
 import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import xyz.erupt.annotation.Erupt;
 import xyz.erupt.annotation.EruptField;
@@ -27,10 +27,11 @@ import java.util.Date;
 @Data
 @DynamicUpdate
 @Erupt( name = "用户",
-        primaryKeyCol = "user_id",
-        power= @Power(add = false,delete = true,
+        primaryKeyCol = "user_id", //主键
+        power= @Power(add = false,delete = true,    //不允许添加用户，需到订票系统注册
                 edit = true,query = true
-        )
+        ),
+        dataProxy = UserDataProxy.class //事件代理，这里用做校验数据 ！
 )
 @Table(name = "user")
 public class User implements Serializable {
