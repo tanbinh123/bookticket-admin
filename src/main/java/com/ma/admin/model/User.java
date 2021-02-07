@@ -101,7 +101,7 @@ public class User implements Serializable {
             edit = @Edit(
                     title = "生日",
                     type = EditType.DATE,search = @Search(vague = true),
-                    dateType = @DateType(type = DateType.Type.DATE)
+                    dateType = @DateType(pickerMode = DateType.PickerMode.HISTORY)
             )
     )
     @Column(name = "user_birth")
