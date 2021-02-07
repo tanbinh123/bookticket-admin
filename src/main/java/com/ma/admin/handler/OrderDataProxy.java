@@ -1,11 +1,17 @@
 package com.ma.admin.handler;
 
+import com.ma.admin.dao.TripsRepository;
 import com.ma.admin.model.Orders;
+import com.ma.admin.model.Trips;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import xyz.erupt.annotation.fun.DataProxy;
 import xyz.erupt.core.exception.EruptWebApiRuntimeException;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
+import java.util.Optional;
 
 
 /**
@@ -17,6 +23,8 @@ import java.util.Date;
 @Component
 public class OrderDataProxy implements DataProxy<Orders> {
 
+    @Autowired
+    private TripsRepository tripsRepository;
 
     /**
      * 在进行数据更新前对一些更改的字段进行数据校验
@@ -63,5 +71,31 @@ public class OrderDataProxy implements DataProxy<Orders> {
         //更改时设置修改时间
         Date date = new Date();
         orders.setOrder_update_time(date);
+    }
+
+    /**
+     * 在查询时对每个订单的状态进行更新，如果订单的车次已发车，则状态也要相应改变
+     *
+     * @param list 查询到订单列表
+     * @author yong
+     * @date 2021/2/7 20:17
+     * @return void
+     */
+
+    @Override
+    public void afterFetch(Collection<Map<String, Object>> list) {
+
+        if(list!=null && list.size()!=0) {
+            list.forEach(order->{
+                Integer order_status =(Integer) order.get("order_status");
+                if(order_status==0) {
+                    Optional<Trips> trips = tripsRepository.findById( (Integer) order.get("trips_trips_id"));
+                    trips.ifPresent(t->{
+                        if(t.getTrips_start_time().getTime()<new Date().getTime() )
+                            order.put("order_status",1);            //设置为已经发车
+                    });
+                }
+            });
+        }
     }
 }
