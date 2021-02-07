@@ -23,7 +23,7 @@ public class TripsDataProxy implements DataProxy<Trips> {
     private TrainRepository trainRepository;
 
     /**
-     * 在修改数据前验证一等座二等座数量之和是否大于列车能承载的数量
+     * 在修改数据前验证
      *
      * @param trips 车次
      * @author yong
@@ -40,6 +40,12 @@ public class TripsDataProxy implements DataProxy<Trips> {
 
         if (trips.getTrips_first_seat_num()+trips.getTrips_second_seat_num()>train_seat_num) {
             throw new EruptWebApiRuntimeException("一等座二等座数量之和大于列车能承载的数量！");
+        }
+
+
+        //车票数量不能小于0
+        if (trips.getTrips_first_seat_num()<0||trips.getTrips_second_seat_num()<0) {
+            throw new EruptWebApiRuntimeException("车票数量不能低于0");
         }
     }
 
@@ -63,12 +69,12 @@ public class TripsDataProxy implements DataProxy<Trips> {
             throw new EruptWebApiRuntimeException("一等座二等座数量之和大于列车能承载的数量！");
         }
 
-        //增加一条新记录删除标志初始为，依据情况初始为0或1
-        Date trips_start_time = trips.getTrips_start_time();
-        if(trips_start_time.getTime()<new Date().getTime())     //出发时间比现在还早，则为删除状态
-            trips.setTrips_delete_flag(1);
-        else
-            trips.setTrips_delete_flag(0);
+        //增加一条新记录删除标志初始为0
+        trips.setTrips_delete_flag(0);
 
+        //车票数量不能小于0
+        if (trips.getTrips_first_seat_num()<0||trips.getTrips_second_seat_num()<0) {
+            throw new EruptWebApiRuntimeException("车票数量不能低于0");
+        }
     }
 }

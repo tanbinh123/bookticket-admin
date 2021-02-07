@@ -20,6 +20,7 @@ public class OrderDataProxy implements DataProxy<Orders> {
 
     /**
      * 在进行数据更新前对一些更改的字段进行数据校验
+     * 因在字典里坐席的id分别为11和22，所以这里需要修改为1和2
      *
      * @param orders 订单
      * @author yong
@@ -40,6 +41,12 @@ public class OrderDataProxy implements DataProxy<Orders> {
         String regex_phone="0?(13|14|15|18|17)[0-9]{9}";
         if(!order_linkman_phone.matches(regex_phone))
             throw new EruptWebApiRuntimeException("请请输入正确的手机号!");
+
+        //修改坐席的值
+        if(orders.getOrder_seat_level()==11)
+            orders.setOrder_seat_level(1);
+        else
+            orders.setOrder_seat_level(2);
     }
 
     /**
