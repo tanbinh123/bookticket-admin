@@ -1,5 +1,14 @@
-/*自定义样式*/
 /*调整顶栏颜色 */
 .alain-default__header {
-    background: #56808b
+    background: #488b87
+}
+
+/*隐藏登录页面版权信息*/
+.global-footer__copyright{
+    display: none;!important;
+}
+
+/*隐藏框架信息*/
+.header-logo-text{
+    display: none;!important;
 }
