@@ -23,7 +23,7 @@
 
 ##### 搭建步骤
 
-1.创建数据库，运行==sql==文件
+1.创建数据库，运行`sql`文件
 
 2.在application.yml里的datasource修改为自己的用户名和密码
 
@@ -48,7 +48,7 @@ spring:
 
 4.可通过IDEA打开项目，运行springboot项目，打开网址：http://localhost:8088/
 
-5.输入用户名GDPU，密码GDPU,或者用户名admin，密码admin ==(admin具有更高权限)==进行登陆
+5.输入用户名GDPU，密码GDPU,或者用户名admin，密码admin `(admin具有更高权限)`进行登陆
 
 PS:如果有问题，可尝试删除.erupt文件
 
@@ -56,35 +56,35 @@ PS:如果有问题，可尝试删除.erupt文件
 
 ###### 登陆页面
 
-![1614172546365](C:\Users\yong\AppData\Roaming\Typora\typora-user-images\1614172546365.png)
+![1614172546365](readme/login.png)
 
 ###### 用户管理
 
-![1614176511482](C:\Users\yong\AppData\Roaming\Typora\typora-user-images\1614176511482.png)
+![1614176511482](readme/user.png)
 
 ###### 列车管理
 
-![1614176533672](C:\Users\yong\AppData\Roaming\Typora\typora-user-images\1614176533672.png)
+![1614176533672](readme/train.png)
 
 ###### 站点管理
 
-![1614176552528](C:\Users\yong\AppData\Roaming\Typora\typora-user-images\1614176552528.png)
+![1614176552528](readme/station.png)
 
 ###### 线路管理
 
-![1614176575984](C:\Users\yong\AppData\Roaming\Typora\typora-user-images\1614176575984.png)
+![1614176575984](readme/line.png)
 
 ###### 车次管理
 
-![1614178614224](C:\Users\yong\AppData\Roaming\Typora\typora-user-images\1614178614224.png)
+![1614178614224](readme/trips.png)
 
 ###### 订单管理
 
-![1614181610914](C:\Users\yong\AppData\Roaming\Typora\typora-user-images\1614181610914.png)
+![1614181610914](readme/orders.png)
 
 ###### 用户维护
 
-![1614178347238](C:\Users\yong\AppData\Roaming\Typora\typora-user-images\1614178347238.png)
+![1614178347238](readme/admin.png)
 
 ------
 
@@ -92,17 +92,18 @@ PS:如果有问题，可尝试删除.erupt文件
 
 ###### 订票相关
 
-![1614182140260](C:\Users\yong\AppData\Roaming\Typora\typora-user-images\1614182140260.png)
+![1614182140260](readme/sql1.png)
 
 ###### 后台管理相关
 
-![1614182240671](C:\Users\yong\AppData\Roaming\Typora\typora-user-images\1614182240671.png)
+![1614182240671](readme/sql2.png)
 
-![1614182278970](C:\Users\yong\AppData\Roaming\Typora\typora-user-images\1614182278970.png)
+![1614182278970](readme/sql3.png)
 
 --------------
 
 ### 说明 
 
-1. 如果使用该项目出现问题，请联系我 ==15913967074@163.com==
-2. 如果该项目对您有帮助,请==star==鼓励我
+1. 如果使用该项目出现问题，请联系我 15913967074@163.com
+2. 如果该项目对您有帮助,请`star`鼓励我
+
