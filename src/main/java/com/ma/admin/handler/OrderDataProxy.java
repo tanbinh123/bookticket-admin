@@ -87,12 +87,12 @@ public class OrderDataProxy implements DataProxy<Orders> {
 
         if(list!=null && list.size()!=0) {
             list.forEach(order->{
-                Integer order_status =(Integer) order.get("order_status");
-                if(order_status==0) {
+                String order_status =(String) order.get("order_status");
+                if(order_status.equals("创建")) {
                     Optional<Trips> trips = tripsRepository.findById( (Integer) order.get("trips_trips_id"));
                     trips.ifPresent(t->{
                         if(t.getTrips_start_time().getTime()<new Date().getTime() )
-                            order.put("order_status",1);            //设置为已经发车
+                            order.put("order_status","已发车");            //设置为已经发车
                     });
                 }
             });

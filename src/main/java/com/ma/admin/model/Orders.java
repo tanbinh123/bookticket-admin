@@ -9,7 +9,6 @@ import xyz.erupt.annotation.sub_erupt.Power;
 import xyz.erupt.annotation.sub_field.Edit;
 import xyz.erupt.annotation.sub_field.EditType;
 import xyz.erupt.annotation.sub_field.View;
-import xyz.erupt.annotation.sub_field.ViewType;
 import xyz.erupt.annotation.sub_field.sub_edit.*;
 import xyz.erupt.upms.handler.DictChoiceFetchHandler;
 
@@ -85,6 +84,7 @@ public class Orders implements Serializable {
             ),
             edit = @Edit(
                     title = "修改时间",
+                    type = EditType.DATE,dateType = @DateType(type = DateType.Type.DATE_TIME),
                     readOnly = true
             )
     )

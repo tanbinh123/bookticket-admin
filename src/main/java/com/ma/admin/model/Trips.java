@@ -85,7 +85,7 @@ public class Trips implements Serializable {
             edit = @Edit(
                     title = "出发时间",
                     type = EditType.DATE, notNull = true,search = @Search(vague = true),
-                    dateType = @DateType(pickerMode = DateType.PickerMode.FUTURE)
+                    dateType = @DateType(type = DateType.Type.DATE_TIME,pickerMode = DateType.PickerMode.FUTURE)
             )
     )
     @Column(name= "trips_start_time")
@@ -98,7 +98,7 @@ public class Trips implements Serializable {
             edit = @Edit(
                     title = "到达时间",
                     type = EditType.DATE, notNull = true,search = @Search(vague = true),
-                    dateType = @DateType(pickerMode = DateType.PickerMode.FUTURE)
+                    dateType = @DateType(type = DateType.Type.DATE_TIME,pickerMode = DateType.PickerMode.FUTURE)
             )
     )
     @Column(name= "trips_end_time")
